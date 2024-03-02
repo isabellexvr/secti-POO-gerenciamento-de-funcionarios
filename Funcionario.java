@@ -20,6 +20,15 @@ public class Funcionario {
         return salario;
     }
 
+    public String getNome(){
+        return nome;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+
     public Departamento getDepartamento() {
         return departamento;
     }
