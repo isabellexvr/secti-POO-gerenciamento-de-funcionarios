@@ -150,9 +150,17 @@ public class App {
                     input.nextLine();
 
                     System.out.println("Qual o índice do funcionário a ser demitido?\n(insira o número correspondente ao funcionário)\n");
-                    listarFuncionariosPorDep(Departamento.getDepartamentoByIndex(depIndexDem));
+
+                    int size = listarFuncionariosPorDep(Departamento.getDepartamentoByIndex(depIndexDem));
+
                     int funcIndexDem = input.nextInt() - 1;
                     input.nextLine();
+
+                    while (funcIndexDem < 0 || funcIndexDem > size -1){
+                        System.out.println("\nFuncionário não encontrado. Tente novamente.\n");
+                        funcIndexDem = input.nextInt() - 1;
+                        input.nextLine();
+                    }
 
                     System.out.println("\nConfirma em remover o funcionário " + Funcionario.getFuncionarioByIndex(funcIndexDem).getNome() + "?");
                     System.out.println("1. Sim");
@@ -195,10 +203,15 @@ public class App {
                     filteredFuncs = Funcionario.getFuncsByDep(dep);
                     double total = Departamento.calcularSalarioTotal(filteredFuncs);
 
-                    System.out.println("\nO salário mensal total do departamento de " + dep.getNome() + " é: " + total + "\n");
+                    System.out.println("\nO salário mensal total do departamento de " + dep.getNome() + " é: R$" + total + "\n");
 
                     continuarOuSair(input);
 
+                    break;
+
+                case 6:
+                    System.out.println("Saindo...");
+                    System.exit(0);
                     break;
 
             }
@@ -233,10 +246,8 @@ public class App {
         }
     }
 
-    public static void listarFuncionariosPorDep(Departamento departamento){
-        System.out.println("oi");
+    public static int listarFuncionariosPorDep(Departamento departamento){
         ArrayList<Funcionario> funcs = new ArrayList<>();
-        System.out.println(funcs.size());
         funcs = Funcionario.getFuncsByDep(departamento);
         System.out.println(funcs.size());
         for (int i = 0; i < funcs.size(); i++) {
@@ -249,6 +260,7 @@ public class App {
             System.out.println("\t- Data de cadastro: " + func.getDataCadastro());
 
         }
+        return funcs.size();
     }
 
     public static void exibirMenu() {
