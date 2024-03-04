@@ -125,7 +125,19 @@ public class Funcionario {
         return formatarData(dataDemissao);
     }
 
+    public static ArrayList<Funcionario> getFuncsByDep(Departamento dep){
+        ArrayList<Funcionario> funcs = new ArrayList<>();
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if(funcionarios.get(i).getDepartamento().getNome().equals(dep.getNome())){
+                funcs.add(funcionarios.get(i));
+            }
+        }
+        return funcs;
+    }
 
+    public static Funcionario getFuncionarioByIndex(int index){
+        return funcionarios.get(index);
+    }
 
     public String getMatricula() {
         return matricula;
@@ -144,6 +156,9 @@ public class Funcionario {
         funcionarios.add(newFunc);
     }
 
+    public static void removeFuncionario(Funcionario func){
+        funcionarios.remove(func);
+    }
     public Cargo getCargo() {
         return cargo;
     }

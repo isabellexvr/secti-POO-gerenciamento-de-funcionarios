@@ -135,6 +135,48 @@ public class App {
 
                     break;
 
+                case 4:
+                    //deletar
+
+                    System.out.println("\n* Demissão de funcionário *\n");
+
+                    System.out.println("De qual departamento o funcionário faz parte?\n(insira o número correspondente ao departamento)\n");
+                    listarDepartamentos(departamentos);
+                    int depIndexDem = input.nextInt() - 1;
+
+                    while (depIndexDem > departamentos.size()-1 || depIndexDem < 0){
+                        System.out.println("Departamento não encontrado. Tente novamente.");
+                        depIndexDem = input.nextInt() - 1;
+                    }
+                    input.nextLine();
+
+                    System.out.println("Qual o índice do funcionário a ser demitido?\n(insira o número correspondente ao funcionário)\n");
+                    listarFuncionariosPorDep(Departamento.getDepartamentoByIndex(depIndexDem));
+                    int funcIndexDem = input.nextInt() - 1;
+                    input.nextLine();
+
+                    System.out.println("\nConfirma em remover o funcionário " + Funcionario.getFuncionarioByIndex(funcIndexDem).getNome() + "?");
+                    System.out.println("1. Sim");
+                    System.out.println("2. Não");
+
+                    int confirmation = input.nextInt();
+                    input.nextLine();
+
+                    while (confirmation != 1 && confirmation != 2){
+                        System.out.println("Opção incorreta. Tente novamente.");
+                        confirmation = input.nextInt();
+                    }
+
+                    if(confirmation == 1){
+                        Funcionario.removeFuncionario(Funcionario.getFuncionarioByIndex(funcIndexDem));
+                        System.out.println("\nFuncionário removido com sucesso.\n");
+                    }else{
+                        System.out.println("\nCancelando operação...\n");
+                    }
+                    continuarOuSair(input);
+
+                    break;
+
 
             }
         }
@@ -166,6 +208,24 @@ public class App {
             if(filtered.get(i) != null){
                 System.out.println(i + 1 + ". " + "Cargo de " + filtered.get(i).getNome());
             }
+
+        }
+    }
+
+    public static void listarFuncionariosPorDep(Departamento departamento){
+        System.out.println("oi");
+        ArrayList<Funcionario> funcs = new ArrayList<>();
+        System.out.println(funcs.size());
+        funcs = Funcionario.getFuncsByDep(departamento);
+        System.out.println(funcs.size());
+        for (int i = 0; i < funcs.size(); i++) {
+            Funcionario func = funcs.get(i);
+            if(func.getDataDemissao() != null) continue;
+            System.out.println(i + 1 + ". " + func.getNome() + ": ");
+            System.out.println("\t- Código de Matrícula: " + func.getMatricula());
+            System.out.println("\t- Cargo: " + func.getCargo().getNome());
+            System.out.println("\t- Salario: " + func.getSalario());
+            System.out.println("\t- Data de cadastro: " + func.getDataCadastro());
 
         }
     }
