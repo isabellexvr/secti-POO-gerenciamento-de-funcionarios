@@ -1,10 +1,11 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
 
         Departamento.popularDepartamentos();
@@ -63,7 +64,12 @@ public class App {
                             Funcionario func = filteredFuncs.get(j);
                             System.out.println(j + 1 + ". " + func.getNome() + ": ");
                             System.out.println("\t- Código de Matrícula: " + func.getMatricula());
+                            System.out.println("\t- Cargo: " + func.getCargo().getNome());
                             System.out.println("\t- Salario: " + func.getSalario());
+                            System.out.println("\t- Data de cadastro: " + func.getDataCadastro());
+                            if(func.getDataDemissao() != null){
+                                System.out.println("\t- Data de demissao: " + func.getDataDemissao());
+                            }
                         }
                     }
 
@@ -79,7 +85,7 @@ public class App {
                     break;
 
                 case 3:
-                    System.out.println("\n* Cadastro de Funcionário:\n");
+                    System.out.println("\n* Cadastro de Funcionário *\n");
                     System.out.println("De qual departamento o funcionário fará parte?\n(insira o número correspondente ao departamento)\n");
                     listarDepartamentos(departamentos);
                     int depIndex = input.nextInt() - 1;
@@ -95,32 +101,36 @@ public class App {
                     System.out.println("\nQual será o cargo do novo funcionário na empresa?\n(insira o número correspondente ao departamento)\n");
 
                     listarCargosFiltradosPorDep(depName, cargos);
-                    int cargoIndex = input.nextInt();
+                    int cargoIndex = input.nextInt() - 1;
                     input.nextLine();
 
-                    System.out.println("Insira o nome do novo funcionário:");
+                    System.out.println("\nInsira o nome do novo funcionário:\n");
                     String name = input.nextLine();
 
                     if (name.isBlank()) name = "Sem nome";
 
-                    System.out.println("Insira o CPF do novo funcionário:");
+                    System.out.println("\nInsira o CPF do novo funcionário:\n");
                     String cpf = input.nextLine();
 
                     while (cpf.length() != 11){
-                        System.out.println("O CPF deve ter 11 dígitos. Tente novamente.");
+                        System.out.println("\nO CPF deve ter 11 dígitos. Tente novamente.\n");
                         cpf = input.nextLine();
                     }
 
                     //matricula automaticamente computada
-                    System.out.println("Insira o salário do novo funcionário:");
+                    System.out.println("\nInsira o salário do novo funcionário:\n");
                     double salario = input.nextDouble();
 
                     while (salario < 1412){
-                        System.out.println("Salário abaixo do salário mínimo. Tente novamente.");
+                        System.out.println("\nSalário abaixo do salário mínimo. Tente novamente.\n");
                         salario = input.nextDouble();
                     }
                     input.nextLine();
 
+                    Funcionario newFunc = new Funcionario(name, cpf, salario, Departamento.getDepartamentoByIndex(depIndex), Cargo.getCargoByIndex(cargoIndex), null);
+                    Funcionario.addNewFuncionario(newFunc);
+
+                    System.out.println("\n* Funcionário cadastrado com sucesso! *\n");
 
 
                     break;

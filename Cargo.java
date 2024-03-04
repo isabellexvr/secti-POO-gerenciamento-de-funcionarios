@@ -31,6 +31,10 @@ public class Cargo {
         return departamento.getNome();
     }
 
+    public static Cargo getCargoByIndex(int index){
+        return cargos.get(index);
+    }
+
     public static void popularCargos() {
         ArrayList<Departamento> departamentos = new ArrayList<>();
         departamentos = Departamento.getDepartamentos();
