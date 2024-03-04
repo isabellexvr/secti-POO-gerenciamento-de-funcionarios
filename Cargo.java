@@ -35,7 +35,7 @@ public class Cargo {
         ArrayList<Departamento> departamentos = new ArrayList<>();
         departamentos = Departamento.getDepartamentos();
 
-        Departamento ti = Departamento.getDepByName("T.I.");
+        Departamento ti = Departamento.getDepByName("TI");
         Departamento ger = Departamento.getDepByName("Gerência");
         Departamento mark = Departamento.getDepByName("Marketing");
         Departamento rh = Departamento.getDepByName("RH");

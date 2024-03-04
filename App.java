@@ -41,6 +41,8 @@ public class App {
             switch (escolha) {
                 case 1:
 
+                    System.out.println("\n Listando todos os funcionários da empresa...\n");
+
                     for (int i = 0; i < departamentos.size(); i++) {
                         Departamento dep = departamentos.get(i);
 
@@ -69,7 +71,7 @@ public class App {
                     break;
 
                 case 2:
-
+                    System.out.println("\n Listando todos os departamentos da empresa...\n");
                     listarDepartamentos(departamentos);
 
                     continuarOuSair(input);
@@ -77,7 +79,8 @@ public class App {
                     break;
 
                 case 3:
-                    System.out.println("De qual departamento o funcionário fará parte?\n\t(insira o número correspondente ao departamento)");
+                    System.out.println("\n* Cadastro de Funcionário:\n");
+                    System.out.println("De qual departamento o funcionário fará parte?\n(insira o número correspondente ao departamento)\n");
                     listarDepartamentos(departamentos);
                     int depIndex = input.nextInt() - 1;
 
@@ -89,7 +92,7 @@ public class App {
 
                     String depName = Departamento.getDepartamentoByIndex(depIndex).getNome();
 
-                    System.out.println("Qual será o cargo do novo funcionário na empresa?");
+                    System.out.println("\nQual será o cargo do novo funcionário na empresa?\n(insira o número correspondente ao departamento)\n");
 
                     listarCargosFiltradosPorDep(depName, cargos);
                     int cargoIndex = input.nextInt();
@@ -179,13 +182,14 @@ public class App {
 
         switch (escolha) {
             case 1:
+                System.out.println("\nVoltando ao menu principal...\n");
                 break;
             case 2:
                 System.out.println("Saindo...");
                 System.exit(0);
                 break;
             default:
-                System.out.println("Opção inválida. Voltando ao menu principal.");
+                System.out.println("Opção inválida. Voltando ao menu principal...\n");
         }
     }
 

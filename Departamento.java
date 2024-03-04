@@ -13,7 +13,7 @@ public class Departamento {
     }
 
     public static void popularDepartamentos() {
-        Departamento ti = new Departamento("T.I.");
+        Departamento ti = new Departamento("TI");
         Departamento gerencia = new Departamento("Gerência");
         Departamento marketing = new Departamento("Marketing");
         Departamento RH = new Departamento("RH");
