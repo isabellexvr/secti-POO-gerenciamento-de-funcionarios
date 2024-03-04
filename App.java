@@ -49,15 +49,24 @@ public class App {
 
                         ArrayList<Funcionario> funcs = Funcionario.getFuncionarios();
 
+                        if(funcs.size() == 0){
+                            System.out.println("A empresa ainda não tem funcionários cadastrados.");
+                            continuarOuSair(input);
+                        }
 
-                        System.out.println("\nDepartamento de " + dep.getNome() + ":");
                         ArrayList<Funcionario> filteredFuncs = new ArrayList<>();
 
                         for (int j = 0; j < funcs.size(); j++) {
-                            //System.out.println(funcs.get(j).getDepartamento().getNome());
                             if(funcs.get(j).getDepartamento().getNome().equals(dep.getNome())){
                                 filteredFuncs.add(funcs.get(j));
                             }
+                        }
+
+                        if(filteredFuncs.isEmpty()){
+                            System.out.println("\n* O departamento de " + dep.getNome() + " ainda não tem funcionários cadastrados. *");
+                            continue;
+                        }else{
+                            System.out.println("\n* Departamento de " + dep.getNome() + ":");
                         }
 
                         for (int j = 0; j < filteredFuncs.size(); j++) {
@@ -71,6 +80,7 @@ public class App {
                                 System.out.println("\t- Data de demissao: " + func.getDataDemissao());
                             }
                         }
+                        //System.out.println("\n");
                     }
 
                     continuarOuSair(input);
@@ -149,9 +159,18 @@ public class App {
                     }
                     input.nextLine();
 
-                    System.out.println("Qual o índice do funcionário a ser demitido?\n(insira o número correspondente ao funcionário)\n");
+                    ArrayList<Funcionario> funcsDoDep = new ArrayList<>();
+                    funcsDoDep = Funcionario.getFuncsByDep(Departamento.getDepartamentoByIndex(depIndexDem));
 
-                    int size = listarFuncionariosPorDep(Departamento.getDepartamentoByIndex(depIndexDem));
+                    if(funcsDoDep.isEmpty()){
+                        System.out.println("\nEsse departamento não possui funcionários cadastrados.\n");
+                        continuarOuSair(input);
+                        break;
+                    }
+
+                    System.out.println("\nQual o índice do funcionário a ser demitido?\n(insira o número correspondente ao funcionário)\n");
+
+                    int size = listarFuncionariosPorDep(funcsDoDep);
 
                     int funcIndexDem = input.nextInt() - 1;
                     input.nextLine();
@@ -162,7 +181,7 @@ public class App {
                         input.nextLine();
                     }
 
-                    System.out.println("\nConfirma em remover o funcionário " + Funcionario.getFuncionarioByIndex(funcIndexDem).getNome() + "?");
+                    System.out.println("\nConfirma em remover o funcionário " + funcsDoDep.get(funcIndexDem).getNome() + "?");
                     System.out.println("1. Sim");
                     System.out.println("2. Não");
 
@@ -175,7 +194,7 @@ public class App {
                     }
 
                     if(confirmation == 1){
-                        Funcionario.removeFuncionario(Funcionario.getFuncionarioByIndex(funcIndexDem));
+                        Funcionario.removeFuncionario(funcsDoDep.get(funcIndexDem));
                         System.out.println("\nFuncionário removido com sucesso.\n");
                     }else{
                         System.out.println("\nCancelando operação...\n");
@@ -246,10 +265,7 @@ public class App {
         }
     }
 
-    public static int listarFuncionariosPorDep(Departamento departamento){
-        ArrayList<Funcionario> funcs = new ArrayList<>();
-        funcs = Funcionario.getFuncsByDep(departamento);
-        System.out.println(funcs.size());
+    public static int listarFuncionariosPorDep(ArrayList<Funcionario> funcs){
         for (int i = 0; i < funcs.size(); i++) {
             Funcionario func = funcs.get(i);
             if(func.getDataDemissao() != null) continue;
