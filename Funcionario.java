@@ -170,4 +170,10 @@ public class Funcionario {
     public static ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
+    public void aumento(double percentagem){
+        double total = this.salario * percentagem/100;
+
+        this.salario += total;
+    }
 }

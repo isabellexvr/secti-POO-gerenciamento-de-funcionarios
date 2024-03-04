@@ -19,7 +19,10 @@ public class App {
         ArrayList<Cargo> cargos = new ArrayList<>();
         cargos = Cargo.getAllCargos();
 
-        System.out.println("tamanho de cargos: " + cargos.size());
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios = Funcionario.getFuncionarios();
+
+        //System.out.println("tamanho de cargos: " + cargos.size());
 
         Scanner input = new Scanner(System.in);
 
@@ -229,10 +232,37 @@ public class App {
                     break;
 
                 case 6:
-                    System.out.println("Saindo...");
-                    System.exit(0);
+                    //listarFuncionariosPorDep(funcionarios);
+                    System.out.println("\n* Aumento salarial *\n");
+                    System.out.println("\nQual a matrícula do funcionário que receberá aumento?\n");
+
+                    String matricula = input.nextLine();
+                    Funcionario fun = null;
+                    for (int i = 0; i < funcionarios.size(); i++) {
+                        if(funcionarios.get(i).getMatricula().equals(matricula)){
+                            fun = funcionarios.get(i);
+                        }
+                    }
+
+                    if (fun == null){
+                        System.out.println("Funcionário não encontrado");
+                        continuarOuSair(input);
+                        break;
+                    }else{
+                        System.out.println("\nQual a percentagem de aumento salarial que será dada?\n");
+                        double pct = input.nextDouble();
+                        input.nextLine();
+                        fun.aumento(pct);
+                        System.out.println("\nAumento concedido com sucesso!\n");
+                    }
+
                     break;
 
+                case 7:
+                    System.out.println("Saindo...");
+                    System.exit(0);
+
+                    break;
             }
         }
 
@@ -288,7 +318,8 @@ public class App {
         System.out.println("3. Adicionar novo funcionário");
         System.out.println("4. Deletar funcionário");
         System.out.println("5. Consultar salário mensal por departamento");
-        System.out.println("6. Sair");
+        System.out.println("6. Dar aumento");
+        System.out.println("7. Sair");
     }
 
     public static void continuarOuSair(Scanner input) {
