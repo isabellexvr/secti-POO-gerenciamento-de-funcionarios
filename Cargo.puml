@@ -1,0 +1,16 @@
+@startuml
+
+class Cargo {
+    - nome: String
+    - departamento: Departamento
+    - cargos: ArrayList<Cargo>
+
+    + Cargo(String, Departamento)
+    + getCargosByDep(String, ArrayList<Cargo>): ArrayList<Cargo>
+    + getNome(): String
+    + getDepName(): String
+    + getCargoByIndex(int): Cargo
+    + popularCargos(): void
+    + getAllCargos(): ArrayList<Cargo>
+}
+@enduml

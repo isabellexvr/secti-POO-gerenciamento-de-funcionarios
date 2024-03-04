@@ -132,7 +132,6 @@ public class App {
 
                     System.out.println("\n* Funcionário cadastrado com sucesso! *\n");
 
-
                     break;
 
                 case 4:
@@ -177,11 +176,33 @@ public class App {
 
                     break;
 
+                case 5:
+                    System.out.println("\n* Consulta de salário mensal de departamento *\n");
+                    System.out.println("Selecione o departamento para consultar o salário mensal:\n(insira o número correspondente ao departamento)\n");
+                    listarDepartamentos(departamentos);
+
+                    int depIndexCons = input.nextInt() - 1;
+
+                    while (depIndexCons > departamentos.size()-1 || depIndexCons < 0){
+                        System.out.println("Departamento não encontrado. Tente novamente.");
+                        depIndexCons = input.nextInt() - 1;
+                    }
+                    input.nextLine();
+
+                    Departamento dep = Departamento.getDepartamentoByIndex(depIndexCons);
+
+                    ArrayList<Funcionario> filteredFuncs = new ArrayList<>();
+                    filteredFuncs = Funcionario.getFuncsByDep(dep);
+                    double total = Departamento.calcularSalarioTotal(filteredFuncs);
+
+                    System.out.println("\nO salário mensal total do departamento de " + dep.getNome() + " é: " + total + "\n");
+
+                    continuarOuSair(input);
+
+                    break;
 
             }
         }
-
-
 
     }
 
@@ -238,7 +259,7 @@ public class App {
         System.out.println("2. Listar departamentos");
         System.out.println("3. Adicionar novo funcionário");
         System.out.println("4. Deletar funcionário");
-        System.out.println("5. Filtrar");
+        System.out.println("5. Consultar salário mensal por departamento");
         System.out.println("6. Sair");
     }
 

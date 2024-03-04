@@ -1,0 +1,15 @@
+@startuml
+
+class Departamento {
+    - nome: String
+    - departamentos: ArrayList<Departamento>
+
+    + Departamento(String)
+    + popularDepartamentos(): void
+    + getDepartamentos(): ArrayList<Departamento>
+    + getDepartamentoByIndex(int): Departamento
+    + getDepByName(String): Departamento
+    + calcularSalarioTotal(ArrayList<Funcionario>): double
+    + getNome(): String
+}
+@enduml

@@ -50,18 +50,13 @@ public class Departamento {
         return result;
     }
 
-    public double calcularSalarioTotal(ArrayList<Funcionario> funcionarios) {
+    public static double calcularSalarioTotal(ArrayList<Funcionario> funcionarios) {
         double salarioTotal = 0.0;
         for (Funcionario funcionario : funcionarios) {
             salarioTotal += funcionario.getSalario();
         }
         return salarioTotal;
     }
-
-//    public void imprimirSalarioTotal() {
-//        double salarioTotal = calcularSalarioTotal();
-//        System.out.println("Salário total do departamento " + nome + ": R$" + salarioTotal);
-//    }
 
     public String getNome() {
         return nome;

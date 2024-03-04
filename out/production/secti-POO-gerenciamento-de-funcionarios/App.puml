@@ -1,0 +1,13 @@
+@startuml
+
+class App {
+    - main(String[] args): void
+    - listarDepartamentos(ArrayList<Departamento>): void
+    - listarCargosDeps(String, ArrayList<Cargo>): void
+    - listarCargosFiltradosPorDep(String, ArrayList<Cargo>): void
+    - listarFuncionariosPorDep(Departamento): void
+    - exibirMenu(): void
+    - continuarOuSair(Scanner): void
+}
+
+@enduml
